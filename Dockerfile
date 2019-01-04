@@ -50,5 +50,5 @@ VOLUME ["/var/www/html/data", "/var/www/html/web"]
 ENTRYPOINT []
 
 # https://github.com/docker-library/php/issues/94
-CMD ["sh", "-c", "sed -i \"s/80/$PORT/g\" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf && docker-php-entrypoint apache2-foreground"]
+CMD ["sh", "-c", "sed -i \"s/80/$PORT/g\" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf && docker-php-entrypoint apache2-foreground --no-auth"]
 #CMD ["apache2-foreground"]
