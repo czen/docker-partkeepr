@@ -4,6 +4,8 @@ LABEL version="1.4.0-15"
 
 ENV PARTKEEPR_VERSION 1.4.0
 
+ENV PORT 80
+
 ENV PARTKEEPR_DATABASE_HOST database
 ENV PARTKEEPR_DATABASE_NAME partkeepr
 ENV PARTKEEPR_DATABASE_PORT 3306
@@ -44,5 +46,9 @@ COPY docker-php-entrypoint mkparameters parameters.template /usr/local/bin/
 
 VOLUME ["/var/www/html/data", "/var/www/html/web"]
 
-ENTRYPOINT ["docker-php-entrypoint"]
-CMD ["apache2-foreground"]
+#ENTRYPOINT ["docker-php-entrypoint"]
+ENTRYPOINT []
+
+# https://github.com/docker-library/php/issues/94
+CMD ["sh", "-c", "sed -i \"s/80/$PORT/g\" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf && docker-php-entrypoint apache2-foreground"]
+#CMD ["apache2-foreground"]
